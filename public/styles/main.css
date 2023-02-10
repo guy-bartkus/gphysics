@@ -1,0 +1,74 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    background: #333;
+}
+
+canvas {
+    display: block;
+    background: #0f0f0f;
+    /* cursor: none; */
+}
+
+.slider-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 10px;
+    width: 100%;
+    /* pointer-events: none; */
+}
+
+/* .slider-container span {
+    pointer-events: all;
+    user-select: none;
+}
+
+.slider-container span span {
+    pointer-events: inherit;
+} */
+
+input[type="range"] {
+    width: 150px;
+}
+
+button {
+    margin-left: 6px;
+    background: #ddd;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #eee;
+}
+
+button:active {
+    background: #fff;
+}
+
+span {
+    color: white;
+}
+
+p {
+    position: fixed;
+    color: #fff;
+    margin: 5px;
+    font-weight: bold;
+    background-color: #000;
+}
+
+#cput {
+    bottom: 0;
+}
+
+#gput {
+    bottom: 20px;
+}
