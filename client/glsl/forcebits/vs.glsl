@@ -1,40 +1,49 @@
 #version 300 es
+
+#define PI_Half 1.5707963267
+#define PI 3.1415926538
+#define PI2 6.2831853071
+
 in vec2 aPos;
-in vec2 aVel;
+in float aDir;
 in int aProp;
+
 uniform vec2 screenDims;
 uniform float speed;
+uniform int electronCount;
+uniform sampler2D electronTex;
+
 out vec2 oPos;
-out vec2 oVel;
-// out uint aProp;
+out float oDir;
+out int oProp;
 out vec3 oColor;
 
 vec4 toClipSpace(vec2 v) {
     float x = (v.x / screenDims.x) * 2.0 - 1.0;
     float y = -( (v.y / screenDims.y) * 2.0 - 1.0 );
 
-    return vec4(x, y, 0.0, 1.0);
+   return vec4(x, y, 0.0, 1.0);
+}
+
+vec2 fromAngle(float rads) {
+    return vec2(cos(rads), sin(rads));
 }
 
 void main() {
-    vec2 aVel2 = aVel;
-    vec2 newPos = aPos+aVel*speed;
-    int type = (aProp >> 7) & 1;
+    int checkCollide = (aProp >> 2) & 1;
 
-    if(newPos.x > screenDims.x - 3.0 || newPos.x < 0.0 + 3.0) {
-        aVel2.x = -aVel2.x;
-        newPos = aPos+aVel*speed;
+    if(checkCollide == 0) {
+        oPos = aPos;
+        oDir = aDir;
+        oProp = aProp;
+        oColor = vec3(0.0, 0.0, 0.0);
+        
+        return;
     }
 
-    if(newPos.y > screenDims.y - 3.0 || newPos.y < 0.0 + 3.0) {
-        aVel2.y = -aVel2.y;
-        newPos = aPos+aVel*speed;
+    for(int i = 0; i < electronCount; i++) {
+        vec2 ePos = texelFetch(electronTex, ivec2(i, 0), 0).xy;
     }
-
-    gl_Position = toClipSpace(newPos);
-    gl_PointSize = 2.0;
-    oPos = newPos;
-    oVel = aVel2;
 
     if(type == 1) {
         oColor = vec3(1, 0.2588, 0.2588);
