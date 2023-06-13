@@ -26,7 +26,7 @@ module.exports = {
     },
     plugins: [
         new HTMLWebpackPlugin({
-            template: path.resolve(__dirname, 'index2.html'),
+            template: path.resolve(__dirname, 'index.html'),
             inject: 'body'
         }),
         new HTMLInlineScriptPlugin({

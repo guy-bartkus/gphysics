@@ -53,6 +53,7 @@ export const createProgram = (gl: WebGL2RenderingContext, vertexShader: WebGLSha
 export const setBuffer = (gl: WebGL2RenderingContext, bufGL: WebGLBuffer | null, sizeOrData: any, usage: number): void => {
     gl.bindBuffer(gl.ARRAY_BUFFER, bufGL);
     gl.bufferData(gl.ARRAY_BUFFER, sizeOrData, usage);
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
 }
 
 export const bufferDataAndSetAttribute = (gl: WebGL2RenderingContext, bufGL: WebGLBuffer | null, loc: number, data: any, type: number, size: number, usage: number, isInt: boolean = false) => {

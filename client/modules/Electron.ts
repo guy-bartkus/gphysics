@@ -14,8 +14,8 @@ export default class Electron extends Physical {
 
     static radius: number = 60;
 
-    constructor(ctx: CanvasRenderingContext2D, x: number, y: number, zoneCount: number = 4) {
-        super(ctx, Electron.radius, x, y);
+    constructor(x: number, y: number, zoneCount: number = 4) {
+        super(Electron.radius, x, y);
         this.zoneCount = zoneCount;
         this.calcZones(true);
         // this.calcZoneLines(); // If allowed to initialze ForceBit with rotation, remember to set rotation AFTER calling this method
@@ -67,44 +67,4 @@ export default class Electron extends Physical {
     //         this.zoneLines[i] = [this.zones[i][0].mul(-Electron.radius), this.zones[i][0].mul(Electron.radius)];
     //     }
     // }
-
-    draw() {
-        const ctx = this.ctx;
-
-        ctx.strokeStyle = "#2f54f7";
-        ctx.fillStyle = "#000";
-        ctx.lineWidth = 2;
-
-        ctx.save();
-        ctx.translate(this.pos.x, this.pos.y);
-        // ctx.rotate(this._rot);
-
-        ctx.beginPath();
-        ctx.arc(0, 0, Electron.radius, 0, Math.PI*2);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = "bold 20px Arial";
-        ctx.fillStyle = "#FFF";
-
-        for(let i = 0; i < this.zoneCount; i++) {
-            const zone = this.zones[i];
-            const zoneDir = zone[0];
-            const zoneBits = zone[1];
-
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            ctx.lineTo(zoneDir.x*Electron.radius, zoneDir.y*Electron.radius);
-            ctx.closePath();
-            ctx.stroke();
-
-            ctx.fillText(zoneBits.length.toString(), zoneDir.x*Electron.radius, zoneDir.y*Electron.radius);
-            ctx.fillText((i+1).toString(), zoneDir.x*(Electron.radius/2), zoneDir.y*(Electron.radius/2));
-        }
-
-        ctx.restore();
-    }
 }
