@@ -182,7 +182,7 @@ function draw() {
             ctx.moveTo(electron.pos.x+Electron.radius, electron.pos.y-(Electron.radius+20));
             ctx.lineTo(electron.pos.x-Electron.radius, electron.pos.y-(Electron.radius+20));
             ctx.closePath();
-            ctx.stroke();
+            ctx.stroke(); 
 
             if(performance.now()-rotateIndicatorTime > 2000) {
                 indicateRotation = 0;
