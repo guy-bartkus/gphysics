@@ -8,8 +8,8 @@ export default class ForceBit extends Physical {
     fillStyle: string = "";
     static radius = 6;
 
-    constructor(x: number, y: number, direction: Vec2, polarity: PolarityType) {
-        super(ForceBit.radius, x, y, direction.normalize().mul(1));
+    constructor(ctx: CanvasRenderingContext2D, x: number, y: number, direction: Vec2, polarity: PolarityType) {
+        super(ctx, ForceBit.radius, x, y, direction.normalize().mul(1));
         this.polarity = polarity;
         
         if(polarity === 'ERB') {
@@ -31,5 +31,16 @@ export default class ForceBit extends Physical {
         }
 
         this.fillStyle = `rgb(${this.color[0]*255}, ${this.color[1]*255}, ${this.color[2]*255})`;
+    }
+
+    draw() {
+        const ctx = this.ctx;
+
+        ctx.fillStyle = this.fillStyle;
+
+        ctx.beginPath();
+        ctx.arc(this.pos.x, this.pos.y, ForceBit.radius, 0, Math.PI*2);
+        ctx.closePath();
+        ctx.fill();
     }
 }
